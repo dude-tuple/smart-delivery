@@ -7,5 +7,7 @@ web3 = Web3(Web3.HTTPProvider(Config.GANACHE_URL))
 with open('build/contracts/SmartDelivery.json') as f:
     contract_json = json.load(f)
 contract_abi = contract_json['abi']
-contract_address = contract_json['network']['5777']['address']
+contract_address = contract_json['networks']['5777']['address']
 smart_delivery = web3.eth.contract(address=contract_address, abi=contract_abi)
+
+Config.set_contract_address(contract_address)

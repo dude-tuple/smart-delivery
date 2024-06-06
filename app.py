@@ -1,4 +1,6 @@
+import os
 from apscheduler.schedulers.background import BackgroundScheduler
+from dotenv import load_dotenv
 from flask import Flask
 from flask_cors import CORS
 
@@ -17,9 +19,12 @@ app.register_blueprint(sensor_bp)
 # Initialize the database
 init_db(app)
 
+load_dotenv(dotenv_path='../.env')
+EXPIRATION_MINUTES = int(os.getenv('EXPIRATION_MINUTES', 5))
+
 from tasks import clear_old_deliveries
 scheduler = BackgroundScheduler()
-scheduler.add_job(func=clear_old_deliveries, trigger="interval", minutes=5)
+scheduler.add_job(func=clear_old_deliveries, trigger="interval", minutes=EXPIRATION_MINUTES)
 scheduler.start()
 
 

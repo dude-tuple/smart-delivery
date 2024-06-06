@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "axios": "^1.7.2"
+    "@truffle/hdwallet-provider": "^2.1.15",
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5"
   }
 }

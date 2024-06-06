@@ -47,6 +47,7 @@ contract SmartDelivery {
     }
 
     address public admin;
+    uint public expirationMinutes;
     mapping(string => Delivery) public deliveries;
     string[] public deliveryIds;  // Auxiliary array to track delivery IDs
 
@@ -62,9 +63,10 @@ contract SmartDelivery {
         _;
     }
 
-    constructor(address _admin) {
+    constructor(address _admin, uint _expirationMinutes) {
         require(_admin != address(0), "Invalid admin address");
         admin = _admin;
+        expirationMinutes = _expirationMinutes;
     }
 
     function startDelivery(
@@ -162,7 +164,7 @@ contract SmartDelivery {
 
     function clearOldDeliveries() public onlyAdmin {
         uint256 currentTime = block.timestamp;
-        uint256 fiveMinutes = 5 * 60;
+        uint256 fiveMinutes = expirationMinutes * 60;
         uint256 i = 0;
 
         while (i < deliveryIds.length) {
