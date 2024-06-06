@@ -1,11 +1,6 @@
-const SmartDelivery = artifacts.require("SmartDelivery");
+var SmartDelivery = artifacts.require("../contracts/SmartDelivery.sol");
 
-module.exports = function (deployer, network, accounts) {
-    const receiver = accounts[1];
-    const minTemp = 2;
-    const maxTemp = 8;
-    const deliveryId = "delivery123";
-    const deposit = web3.utils.toWei('1', 'ether');
-
-    deployer.deploy(SmartDelivery, receiver, minTemp, maxTemp, deliveryId, { value: deposit, from: accounts[0] });
+module.exports = async function (deployer, network, accounts) {
+    const admin = accounts[0];
+    deployer.deploy(SmartDelivery, admin)
 };

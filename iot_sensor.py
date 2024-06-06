@@ -1,5 +1,6 @@
 import random
 import time
+from config import Config
 from datetime import datetime
 
 
@@ -8,10 +9,10 @@ class Sensor:
         self.delivery_id = delivery_id
 
     def read_temperature(self):
-        return random.uniform(2, 10)
+        return random.uniform(Config.MIN_TEMP, Config.MAX_TEMP)
 
     def read_humidity(self):
-        return random.uniform(30, 90)
+        return random.uniform(Config.MIN_HUM, Config.MAX_HUM)
 
 
 class DeliveryProcessor:
